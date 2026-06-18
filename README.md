@@ -7,7 +7,7 @@ documentation, debugging, and technical review.
 The plugin is editor-only. It reads Material and Material Function assets,
 generates a report, and does not modify source assets.
 
-![Material2AI overview](docs/images/overview.png)
+![Material2AI overview](Github_Images/overview.png)
 
 ## Supported Unreal Engine Version
 
