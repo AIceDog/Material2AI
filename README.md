@@ -186,7 +186,7 @@ This section is mainly for developers or users testing source packaging.
 When packaging the plugin with Unreal's `BuildPlugin` workflow, use an
 ASCII-only output path.
 
-Recommended package paths:
+Example package paths:
 
 ```text
 C:/UEPluginPackages/Material2AI
