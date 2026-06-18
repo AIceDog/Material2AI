@@ -106,8 +106,8 @@ Use `Save .md` to save the visible report text under the project
 Enable `Details` when you want asset-level Material or Material Function
 settings in the report.
 
-![Details export](Github_Images/details_M).png)
-![Details export](Github_Images/details_MF).png)
+![Details export](Github_Images/details_M.png)
+![Details export](Github_Images/details_MF.png)
 
 ## Node Properties
 
