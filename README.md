@@ -28,7 +28,7 @@ Plugin type:
 Material2AI exports graph structure first, with optional details when deeper
 inspection is needed.
 
-![Structured output example](docs/images/structured-output-example.png)
+![Structured output example](Github_Images/structured-output-example.png)
 
 It can include:
 
@@ -47,7 +47,7 @@ It can include:
 Install Material2AI from Fab, then enable it from Unreal Engine's Plugins
 window.
 
-![Enable Material2AI plugin](docs/images/plugin-enabled.png)
+![Enable Material2AI plugin](Github_Images/plugin-enabled.png)
 
 After enabling the plugin, restart the editor if Unreal asks for it.
 
@@ -61,7 +61,7 @@ Editor.
 Right-click a Material or Material Function asset, then choose
 `Material2AI: Export`.
 
-![Content Browser export](docs/images/content-browser-export.png)
+![Content Browser export](Github_Images/content-browser-export.png)
 
 Supported assets include:
 
@@ -76,7 +76,7 @@ Supported assets include:
 Open a Material or Material Function, then click the `Material2AI` toolbar
 button.
 
-![Material Editor export](docs/images/material-editor-export.png)
+![Material Editor export](Github_Images/material-editor-export.png)
 
 This is useful when you are already editing a graph and want to generate a
 report without returning to the Content Browser.
@@ -86,47 +86,47 @@ report without returning to the Content Browser.
 The export window lets you preview, refresh, copy, save, and customize the
 generated report.
 
-![Material2AI export window](docs/images/export-window.png)
+![Material2AI export window](Github_Images/export-window.png)
 
 ## Refresh
 
 Use `Refresh` after changing the material or changing export options.
 
-![Refresh report](docs/images/refresh.png)
+![Refresh report](Github_Images/refresh.png)
 
 ## Save .md
 
 Use `Save .md` to save the visible report text under the project
 `Saved/Material2AI` folder.
 
-![Save Markdown report](docs/images/save-md.png)
+![Save Markdown report](Github_Images/save-md.png)
 
 ## Details
 
 Enable `Details` when you want asset-level Material or Material Function
 settings in the report.
 
-![Details export](docs/images/details.png)
+![Details export](Github_Images/details.png)
 
 ## Node Properties
 
 Enable `Node Properties` when you need deeper node-level information, such as
 editable expression properties.
 
-![Node Properties export](docs/images/node-properties.png)
+![Node Properties export](Github_Images/node-properties.png)
 
 ## Expand
 
 Enable `Expand` to include referenced Material Function graphs in the same
 report.
 
-![Material Function expansion](docs/images/expand.png)
+![Material Function expansion](Github_Images/expand.png)
 
 ## Depth
 
 Use `Depth` to control how many nested Material Function levels are expanded.(Attention: To use `Depth` you need to enable `Expand`)
 
-![Function expansion depth](docs/images/depth.png)
+![Function expansion depth](Github_Images/depth.png)
 
 Depth behavior:
 
@@ -239,7 +239,7 @@ Important Unreal Engine systems used:
 Make sure Material2AI is installed and enabled in the Unreal Engine Plugins
 window.
 
-![Plugin troubleshooting](docs/images/plugin-enabled.png)
+![Plugin troubleshooting](Github_Images/plugin-enabled.png)
 
 If you are using a source version, rebuild the project and restart the editor.
 
