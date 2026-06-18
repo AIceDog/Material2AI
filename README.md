@@ -90,7 +90,7 @@ generated report.
 
 ## Refresh
 
-Use `Refresh` after changing the graph or changing export options.
+Use `Refresh` after changing the material or changing export options.
 
 ![Refresh report](docs/images/refresh.png)
 
@@ -124,7 +124,7 @@ report.
 
 ## Depth
 
-Use `Depth` to control how many nested Material Function levels are expanded.
+Use `Depth` to control how many nested Material Function levels are expanded.(Attention: To use `Depth` you need to enable `Expand`)
 
 ![Function expansion depth](docs/images/depth.png)
 
@@ -316,5 +316,5 @@ For support, please include:
 Contact:
 
 - GitHub Issues: `https://github.com/YOUR_NAME/YOUR_REPOSITORY/issues`
-- Email: `YOUR_EMAIL@example.com`
+- Email: `15927443559@163.com`
 
