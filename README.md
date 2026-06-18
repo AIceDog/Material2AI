@@ -315,6 +315,6 @@ For support, please include:
 
 Contact:
 
-- GitHub Issues: `https://github.com/YOUR_NAME/YOUR_REPOSITORY/issues`
+- GitHub Issues: `https://github.com/AIceDog/Material2AI/issues`
 - Email: `15927443559@163.com`
 
