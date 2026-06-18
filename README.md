@@ -106,7 +106,8 @@ Use `Save .md` to save the visible report text under the project
 Enable `Details` when you want asset-level Material or Material Function
 settings in the report.
 
-![Details export](Github_Images/details.png)
+![Details export](Github_Images/details_M).png)
+![Details export](Github_Images/details_MF).png)
 
 ## Node Properties
 
@@ -124,7 +125,7 @@ report.
 
 ## Depth
 
-Use `Depth` to control how many nested Material Function levels are expanded.(Attention: To use `Depth` you need to enable `Expand`)
+Use `Depth` to control how many nested Material Function levels are expanded. (Notice: To use `Depth` you need to enable `Expand`)
 
 ![Function expansion depth](Github_Images/depth.png)
 
