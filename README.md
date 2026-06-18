@@ -1,11 +1,13 @@
 # Material2AI Documentation
 
 Material2AI is an Unreal Engine editor plugin for exporting Material and
-Material Function graphs into structured text reports that can be used for AI
-assistance, documentation, debugging, and technical review.
+Material Function graphs into structured text reports for AI assistance,
+documentation, debugging, and technical review.
 
-The plugin is designed for editor workflows. It does not modify source assets
-and does not add runtime gameplay functionality.
+The plugin is editor-only. It reads Material and Material Function assets,
+generates a report, and does not modify source assets.
+
+![Material2AI overview](docs/images/overview.png)
 
 ## Supported Unreal Engine Version
 
@@ -14,7 +16,7 @@ Tested with:
 - Unreal Engine 5.7.4
 - Windows / Win64 editor workflow
 
-Current plugin descriptor:
+Plugin type:
 
 - Module type: Editor
 - Supported platform: Win64
@@ -23,62 +25,45 @@ Current plugin descriptor:
 
 ## What Material2AI Exports
 
-Material2AI can export:
+Material2AI exports graph structure first, with optional details when deeper
+inspection is needed.
+
+![Structured output example](docs/images/structured-output-example.png)
+
+It can include:
 
 - Material root output trees
 - Material Function output trees
 - Connected node chains
-- Default values for active but unconnected material outputs
-- Default values for unconnected expression inputs when available
+- Default values for unconnected outputs and inputs
 - Referenced Material Functions
 - Optional Material Details
 - Optional Material Function Details
 - Optional Material Node Properties
 - Optional Material Function Node Properties
 
-The output is intentionally text-first so it can be pasted into AI tools,
-technical notes, bug reports, or internal documentation.
-
 ## Installation
 
-Install the plugin into a project-level Plugins folder:
+Install Material2AI from Fab, then enable it from Unreal Engine's Plugins
+window.
 
-```text
-<YourProject>/Plugins/Material2AI/
-```
+![Enable Material2AI plugin](docs/images/plugin-enabled.png)
 
-The folder should contain:
-
-```text
-Material2AI/
-  Material2AI.uplugin
-  Resources/
-  Source/
-  README.md
-```
-
-Then:
-
-1. Open the Unreal Engine project.
-2. Let Unreal compile the plugin if prompted.
-3. Enable `Material2AI` from the Plugins window if it is not already enabled.
-4. Restart the editor if Unreal asks for a restart.
-
-For source builds, make sure Visual Studio and the required Unreal C++ build
-tools are installed.
+After enabling the plugin, restart the editor if Unreal asks for it.
 
 ## Basic Usage
 
-Material2AI has two main editor entry points.
+Material2AI can be opened from the Content Browser or directly from the Material
+Editor.
 
-### Content Browser Export
+## Content Browser Export
 
-1. Select one or more supported assets in the Content Browser.
-2. Right-click the selection.
-3. Choose `Material2AI: Export`.
-4. The Material2AI export window opens with the generated report.
+Right-click a Material or Material Function asset, then choose
+`Material2AI: Export`.
 
-Supported asset types include:
+![Content Browser export](docs/images/content-browser-export.png)
+
+Supported assets include:
 
 - Material
 - Material Function
@@ -86,41 +71,73 @@ Supported asset types include:
 - Material Function Material Layer
 - Material Function Material Layer Blend
 
-### Material Editor Export
+## Material Editor Export
 
-1. Open a Material or Material Function in the Unreal Editor.
-2. Click the `Material2AI` toolbar button.
-3. The export window opens for the asset currently being edited.
+Open a Material or Material Function, then click the `Material2AI` toolbar
+button.
 
-The toolbar path is useful when you are already inspecting a graph and want to
-generate a report without returning to the Content Browser.
+![Material Editor export](docs/images/material-editor-export.png)
+
+This is useful when you are already editing a graph and want to generate a
+report without returning to the Content Browser.
 
 ## Export Window
 
-The export window provides:
+The export window lets you preview, refresh, copy, save, and customize the
+generated report.
 
-- `Refresh`: Regenerates the report from the current asset references.
-- `Copy`: Copies the visible report text to the clipboard.
-- `Save .md`: Saves the visible report under the project `Saved/Material2AI`
-  folder.
-- `Material > Details`: Includes reflected Material details.
-- `Material > Node Properties`: Includes reflected Material expression
-  properties.
-- `Material Functions > Details`: Includes reflected Material Function details.
-- `Material Functions > Node Properties`: Includes reflected function
-  expression properties.
-- `Material Functions > Expand`: Expands referenced Material Functions into
-  their own report sections.
-- `Depth`: Controls how deeply nested Material Functions are expanded.
+![Material2AI export window](docs/images/export-window.png)
 
-Most detailed property sections are optional because large materials can produce
-very long reports. The default output focuses on graph structure first.
+## Refresh
+
+Use `Refresh` after changing the graph or changing export options.
+
+![Refresh report](docs/images/refresh.png)
+
+## Save .md
+
+Use `Save .md` to save the visible report text under the project
+`Saved/Material2AI` folder.
+
+![Save Markdown report](docs/images/save-md.png)
+
+## Details
+
+Enable `Details` when you want asset-level Material or Material Function
+settings in the report.
+
+![Details export](docs/images/details.png)
+
+## Node Properties
+
+Enable `Node Properties` when you need deeper node-level information, such as
+editable expression properties.
+
+![Node Properties export](docs/images/node-properties.png)
+
+## Expand
+
+Enable `Expand` to include referenced Material Function graphs in the same
+report.
+
+![Material Function expansion](docs/images/expand.png)
+
+## Depth
+
+Use `Depth` to control how many nested Material Function levels are expanded.
+
+![Function expansion depth](docs/images/depth.png)
+
+Depth behavior:
+
+- `0`: Do not expand referenced functions.
+- `1`: Expand directly referenced functions.
+- `2`: Expand direct functions and one nested level.
+- Maximum depth: 8
 
 ## Output Structure
 
-A typical export is organized by asset.
-
-For a Material, the report can include:
+Material2AI keeps each asset in its own section so the report stays readable.
 
 ```text
 Material
@@ -128,11 +145,7 @@ Material
   Details
   Node Properties
   Used Material Functions
-```
 
-For each referenced Material Function, the report can include:
-
-```text
 Material Function
   Interface
   Graph Tree
@@ -141,12 +154,7 @@ Material Function
   Used Material Functions
 ```
 
-This keeps the top-level Material and each Material Function self-contained,
-which makes the report easier to read and easier to send to an AI assistant.
-
-## Example Output
-
-Example tree-style output:
+Example tree:
 
 ```text
 * Material M_Example
@@ -169,55 +177,10 @@ Connector meaning:
 
 - `|--` means this branch has more sibling branches after it.
 - `L--` means this is the last branch at that level.
-- A blank connector line between root outputs is used only for readability.
-
-## Material Function Expansion
-
-When Material Function expansion is enabled, Material2AI detects function call
-nodes and adds the referenced Material Functions to the report.
-
-Expansion depth is limited to keep exports responsive and avoid infinite loops
-from recursive or shared function references.
-
-Depth behavior:
-
-- `0`: Do not expand referenced functions.
-- `1`: Expand functions directly referenced by the selected asset.
-- `2`: Expand direct functions and one nested level.
-- Maximum allowed depth: 8
-
-Already visited functions are tracked during export so repeated references do
-not produce infinite recursion.
-
-## Saved Reports
-
-When `Save .md` is clicked, Material2AI saves the current visible text to:
-
-```text
-<YourProject>/Saved/Material2AI/
-```
-
-The visible text is saved rather than only the generated text. This means users
-can manually trim or annotate the report in the export window before saving.
-
-## Stability And Safety Notes
-
-Material2AI is designed to avoid editor crashes during export.
-
-Safety behavior includes:
-
-- Unsupported assets are ignored or reported instead of crashing.
-- Null and invalid asset references are skipped.
-- Preview/transient editor materials are filtered where possible.
-- Material Function recursion depth is clamped.
-- Large reports are truncated before they become too heavy for the editor.
-- Very large graph/property sections include warning lines in the report.
-- Save file names are sanitized before writing to disk.
-
-The plugin reads graph data and reflected properties. It does not edit, compile,
-resave, or otherwise modify Material or Material Function assets.
 
 ## Packaging Notes
+
+This section is mainly for developers or users testing source packaging.
 
 When packaging the plugin with Unreal's `BuildPlugin` workflow, use an
 ASCII-only output path.
@@ -229,27 +192,9 @@ C:/UEPluginPackages/Material2AI
 F:/UEPluginPackages/Material2AI
 ```
 
-Avoid package output paths containing non-ASCII characters, such as Chinese
-characters, because Unreal Automation Tool / build tooling may produce garbled
-intermediate paths on some Windows setups.
-
-For distribution, do not include local generated folders such as:
-
-```text
-Binaries/
-Intermediate/
-Saved/
-DerivedDataCache/
-```
-
-A clean source distribution should normally include:
-
-```text
-Material2AI.uplugin
-README.md
-Resources/
-Source/
-```
+Avoid package output paths containing non-ASCII characters because Unreal
+Automation Tool / build tooling may produce garbled intermediate paths on some
+Windows setups.
 
 ## Technical Details
 
@@ -261,13 +206,11 @@ Material2AI - Editor
 
 Primary implementation areas:
 
-- `FMaterial2AIModule`: Registers editor menu and toolbar entry points, resolves
-  selected editor assets, and opens the export window.
-- `SMaterial2AIOutputWindow`: Slate UI for previewing, refreshing, copying, and
-  saving generated reports.
-- `FMaterial2AIExporter`: Walks Material and Material Function graph data and
-  generates the structured text report.
-- `FMaterial2AIExportSettings`: Stores user-controlled export options.
+- `FMaterial2AIModule`: Registers editor menus and opens the export window.
+- `SMaterial2AIOutputWindow`: Slate UI for previewing, copying, and saving
+  reports.
+- `FMaterial2AIExporter`: Walks Material and Material Function graph data.
+- `FMaterial2AIExportSettings`: Stores export options.
 
 Important Unreal Engine systems used:
 
@@ -284,29 +227,25 @@ Important Unreal Engine systems used:
 - Current release targets Win64 editor workflows.
 - Very large graphs may be summarized or truncated to keep the editor
   responsive.
-- Reflected Details and Node Properties can be verbose; leave those options off
-  when preparing compact AI prompts.
+- Details and Node Properties can be verbose; leave them off for compact AI
+  prompts.
 - The exported report is a structural description, not a replacement for Unreal
-  Engine's material compiler or shader code output.
+  Engine's material compiler or shader output.
 
 ## Troubleshooting
 
 ### The plugin does not appear in the editor
 
-Check that the folder is installed at:
+Make sure Material2AI is installed and enabled in the Unreal Engine Plugins
+window.
 
-```text
-<YourProject>/Plugins/Material2AI/
-```
+![Plugin troubleshooting](docs/images/plugin-enabled.png)
 
-Then regenerate project files, rebuild the project, and enable the plugin in
-the Plugins window.
+If you are using a source version, rebuild the project and restart the editor.
 
 ### Packaging fails with a missing SharedPCH source file
 
 Use an ASCII-only package output path.
-
-For example:
 
 ```text
 C:/UEPluginPackages/Material2AI
@@ -317,7 +256,7 @@ the build toolchain garbles the temporary HostProject path.
 
 ### The report is too long for an AI prompt
 
-Try disabling:
+Disable detailed sections first:
 
 - Material Details
 - Material Function Details
@@ -328,7 +267,7 @@ You can also reduce the Material Function expansion depth.
 
 ### Some inputs show default values instead of nodes
 
-This means the input was not connected to another expression, but the exporter
+This means the input was not connected to another expression, but Material2AI
 found a usable editor default value for that input.
 
 ### A Material Function appears only as a reference
@@ -344,16 +283,16 @@ No. Material2AI only reads editor graph data and generates a text report.
 
 ### Can I use it in a packaged game?
 
-No. Material2AI is an editor plugin. It is meant for Unreal Editor workflows.
+No. Material2AI is an editor plugin for Unreal Editor workflows.
 
 ### Does it require an AI service or API key?
 
-No. Material2AI only generates structured text. You can paste or save that text
-and use it with the AI tool of your choice.
+No. Material2AI only generates structured text. You can use that text with the
+AI tool of your choice.
 
 ### Does it support Material Functions?
 
-Yes. It can export Material Function assets directly and can expand referenced
+Yes. It can export Material Function assets directly and expand referenced
 Material Functions from a Material graph.
 
 ### Where are saved reports stored?
@@ -366,12 +305,16 @@ Saved reports are written under:
 
 ## Support
 
-For support, include:
+For support, please include:
 
 - Unreal Engine version
 - Material2AI version
 - Whether the issue happens from the Content Browser or Material Editor toolbar
-- The selected asset type
-- Any warnings shown in the generated report
+- Selected asset type
 - Relevant Unreal Output Log messages
+
+Contact:
+
+- GitHub Issues: `https://github.com/YOUR_NAME/YOUR_REPOSITORY/issues`
+- Email: `YOUR_EMAIL@example.com`
 
