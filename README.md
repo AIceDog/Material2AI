@@ -13,7 +13,7 @@ generates a report, and does not modify source assets.
 
 Tested with:
 
-- Unreal Engine 5.7.4, 5.6.1
+- Unreal Engine 5.3-5.7
 - Windows / Win64 editor workflow
 
 Plugin type:
